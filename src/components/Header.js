@@ -2,11 +2,14 @@ import React from "react";
 import { ImSearch } from "react-icons/im";
 import { FaUserCircle } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className="h-16 shadow-md">
       <div className="h-full container mx-auto flex items-center px-4 justify-between">
-        <div className="logo font-bold font-serif">EHAYAAN</div>
+        <div className="logo font-bold font-serif">
+          <Link to="/">EHAYAAN</Link>
+        </div>
         <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus:focus-within:shadow pl-2">
           <input
             type="text"
@@ -34,7 +37,7 @@ const Header = () => {
 
           <div>
             <button className="px-3 py-1 rounded-full text-white bg-purple-500 hover:bg-yellow-600">
-              Login
+              <Link to="/login"> Login</Link>
             </button>
           </div>
         </div>
