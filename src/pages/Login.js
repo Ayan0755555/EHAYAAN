@@ -4,8 +4,31 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import {Link} from "react-router-dom"
 
+
 const Login = () => {
 const [show,setShow]=useState(false)
+const [data,setData]=useState({
+    email:"",
+    password:""
+})
+
+const handleOnchange= (e) => {
+  const {name , value} = e.target
+
+  setData((preve)=>{
+     return {
+        ...preve,
+        [name] : value
+     }
+  })
+}
+
+const handleSubmit = (e) => {
+     e.preventDefault()
+}
+
+console.log("data is coming",data);
+
   return (
     <section id="login">
     <div className="max-auto container p-4">
@@ -14,17 +37,27 @@ const [show,setShow]=useState(false)
 <img src={loginIcons} alt="login icons"/>
 </div>
 
-<form className='p-6'>
+<form className='p-6' onSubmit={handleSubmit}>
 <div className='grid'>
 <label htmlFor="email">Email :</label>
 <div className='bg-slate-200 p-2'>
-<input type="email" placeholder='Enter Email' className='w-full h-full  outline-none bg-transparent'/>
+<input type="email"
+ placeholder='Enter Email'
+ name='email'
+ value={data.email}
+ onChange={handleOnchange}
+ className='w-full h-full  outline-none bg-transparent'/>
 </div>
 </div>
 <div className='mt-6'>
 <label htmlFor="email">Password :</label>
 <div className='bg-slate-200 p-2 flex ' onClick={()=>setShow((preve)=>!preve)}>
-<input type={show ? "text" : "password"} placeholder='Enter Password' className='w-full h-full  outline-none bg-transparent' />
+<input type={show ? "text" : "password"}
+ placeholder='Enter Password' 
+ name='password'
+ value={data.password}
+ onChange={handleOnchange}
+ className='w-full h-full  outline-none bg-transparent' />
 <div className='cursor-pointer'>
 <span>
 {
@@ -51,5 +84,6 @@ const [show,setShow]=useState(false)
     </section>
   )
 }
+
 
 export default Login
