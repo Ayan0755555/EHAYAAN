@@ -33,22 +33,25 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dataResponse = await fetch(SummaryApi.signUP.url, {
-      method: SummaryApi.signUP.method,
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const dataApi = await dataResponse.json();
+    if (data.password === data.confirmPassword) {
+      const dataResponse = await fetch(SummaryApi.signUP.url, {
+        method: SummaryApi.signUP.method,
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (dataApi.success) {
-      toast.success(dataApi.message);
-      navigate("/login");
-    }
+      const dataApi = await dataResponse.json();
 
-    if (dataApi.error) {
-      toast.error(dataApi.message);
+      if (dataApi.success) {
+        toast.success(dataApi.message);
+        navigate("/login");
+      }
+
+      if (dataApi.error) {
+        toast.error(dataApi.message);
+      }
     } else {
       toast.error("Please check password and confirm password");
     }
