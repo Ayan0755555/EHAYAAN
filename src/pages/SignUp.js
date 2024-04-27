@@ -3,6 +3,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import loginIcons from "../assest/signin.gif";
 import { Link } from "react-router-dom";
 import Image from "../helpers/Image";
+import SummaryApi from "../common/index";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
@@ -14,6 +17,7 @@ const SignUp = () => {
     confirm: "",
     profilePic: "",
   });
+  const navigate = useNavigate();
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -26,8 +30,28 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const dataResponse = await fetch(SummaryApi.signUP.url, {
+      method: SummaryApi.signUP.method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const dataApi = await dataResponse.json();
+
+    if (dataApi.success) {
+      toast.success(dataApi.message);
+      navigate("/login");
+    }
+
+    if (dataApi.error) {
+      toast.error(dataApi.message);
+    } else {
+      toast.error("Please check password and confirm password");
+    }
   };
 
   const handleUploadPic = async (e) => {
