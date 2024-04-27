@@ -57,9 +57,16 @@ const SignUp = () => {
 
       const dataApi = await dataResponse.json();
 
-      console.log("dataapi", dataApi);
+      if (dataApi.success) {
+        toast.success(dataApi.message);
+        navigate("/login");
+      }
+
+      if (dataApi.error) {
+        toast.error(dataApi.message);
+      }
     } else {
-      console.log("confirm password");
+      toast.error("Please check password and confirm password");
     }
   };
 
