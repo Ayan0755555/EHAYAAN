@@ -8,20 +8,50 @@ import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SummaryApi from "./common";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import Context from "./context";
+import { setUserDetails } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const fetchUserDetails = async () => {
+    const dataResponse = await fetch(SummaryApi.current_user.url, {
+      method: SummaryApi.current_user.method,
+      credentials: "include",
+    });
+
+    const dataApi = await dataResponse.json();
+
+    if (dataApi.success) {
+      dispatch(setUserDetails(dataApi.data));
+    }
+  };
+
+  useEffect(() => {
+    /**user Details */
+    fetchUserDetails();
+  }, []);
   return (
     <>
-      <ToastContainer />
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
+      <Context.Provider
+        value={{
+          fetchUserDetails, // user detail fetch
+        }}
+      >
+        <ToastContainer />
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </Context.Provider>
     </>
   );
 }
