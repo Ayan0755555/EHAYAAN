@@ -1,4 +1,7 @@
 import React from "react";
+import Footer from "../components/Footer";
+import Feature from "../components/Feature";
+import Auto from "../components/Auto";
 
 const Home = () => {
   return (
@@ -20,6 +23,9 @@ const Home = () => {
           </button>
         </div>
       </div>
+      <Auto />
+      <Feature />
+      <Footer />
     </>
   );
 };
