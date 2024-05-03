@@ -1,4 +1,5 @@
 import React from "react";
+import CardShow from "./CardShow";
 
 const AutoPage = () => {
   return (
@@ -29,6 +30,7 @@ const AutoPage = () => {
           class="w-full outline-none text-sm"
         />
       </div>
+      <CardShow />
     </>
   );
 };
