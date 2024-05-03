@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import Context from "./context";
 import { setUserDetails } from "./store/userSlice";
 import AutoPage from "./pages/AutoPage";
+import AddNewAuto from "./pages/AddNewAuto";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/auto" element={<AutoPage />} />
+            <Route path="/addnewauto" element={<AddNewAuto />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
